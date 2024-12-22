@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "738386009183",
+    "project_id": "libreriawizardcat",
+    "storage_bucket": "libreriawizardcat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738386009183:android:a0d414bb83aef651670fea",
+        "android_client_info": {
+          "package_name": "com.wizard.gatolib"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLJ3LGo0tey0-ZmeGOZA-vt-3DzjE8pQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

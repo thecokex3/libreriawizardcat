@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../widgets/drawer_menu.dart';
 import '../../widgets/carrusel.dart';
 import '../../widgets/book_grid.dart';
-import '../../screens/login_dialog.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    print('Usuario actual: $user');
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Librería Wizard Cat'),
@@ -19,28 +22,36 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.person),
+            icon: const Icon(Icons.logout),
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => const LoginDialog(),
-              );
+              FirebaseAuth.instance.signOut().then((value) {
+                Navigator.pushReplacementNamed(context, '/login');
+              });
             },
           ),
         ],
       ),
       drawer: const DrawerMenu(),
-      body: ListView(
-        children: const [
-          Carrusel(),
-          SectionTitle(title: 'Novedades'),
-          BookGrid(),
-          SectionTitle(title: 'Más Populares'),
-          BookGrid(),
-          SectionTitle(title: 'Más Vendidos'),
-          BookGrid(),
-        ],
-      ),
+      body: user == null
+          ? Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/login');
+                },
+                child: const Text('Inicia sesión para continuar'),
+              ),
+            )
+          : ListView(
+              children: const [
+                Carrusel(),
+                SectionTitle(title: 'Novedades'),
+                BookGrid(),
+                SectionTitle(title: 'Más Populares'),
+                BookGrid(),
+                SectionTitle(title: 'Más Vendidos'),
+                BookGrid(),
+              ],
+            ),
     );
   }
 }

@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:gatolib/screens/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'screens/Home_Screen.dart';
+import 'screens/LoginScreen.dart';
 
-void main() => runApp(const LibreriaWizardCatApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    print('Error al inicializar Firebase: $e');
+  }
+  runApp(MyApp());
+}
 
-class LibreriaWizardCatApp extends StatelessWidget {
-  const LibreriaWizardCatApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Libreria Wizard Cat',
+      title: 'Librería Wizard Cat',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: const Color(0xFF1B263B),
+        primarySwatch: Colors.brown,
       ),
-      home: const HomeScreen(),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/home': (context) => HomeScreen(),
+      },
     );
   }
 }
